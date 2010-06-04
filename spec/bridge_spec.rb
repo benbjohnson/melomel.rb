@@ -19,6 +19,18 @@ describe "Bridge" do
     @bridge.connect()
   end
   
+  it "should send messages over a socket connection" do
+    connect()
+    @socket.should_receive(:send).with("<message/>\x00")
+    @bridge.send('<message/>')
+  end
+
+  it "should receive messages from a socket connection" do
+    connect()
+    @socket.should_receive(:gets).and_return("<message/>\x00")
+    @bridge.receive().should == '<message/>'
+  end
+
   it "should send a policy file and connect" do
     policy = '<?xml version="1.0"?><!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd"><cross-domain-policy><allow-access-from domain="localhost" to-ports="10101"/></cross-domain-policy>';
     
@@ -42,46 +54,44 @@ describe "Bridge" do
     # Attempt connection
     @bridge.connect()
   end
+end
 
-
-  it "should send messages over a socket connection" do
-    connect()
-    @socket.should_receive(:send).with("<message/>\x00")
-    @bridge.send('<message/>')
+describe "Bridge Message Parsing" do
+  before do
+    @bridge = Melomel::Bridge.new('localhost', 10101)
+  end
+  
+  it "should parse a null" do
+    message = '<return dataType="null"/>'
+    @bridge.parse_message_value(Nokogiri::XML(message).root).should be_nil
   end
 
-  it "should receive messages from a socket connection" do
-    connect()
-    @socket.should_receive(:gets).and_return("<message/>\x00")
-    @bridge.receive().should == '<message/>'
-  end
-
-  it "should parse a returned integer" do
+  it "should parse an integer" do
     message = '<return value="12" dataType="int"/>'
     @bridge.parse_message_value(Nokogiri::XML(message).root).should == 12
   end
 
-  it "should parse a returned float" do
+  it "should parse a float" do
     message = '<return value="100.12" dataType="float"/>'
     @bridge.parse_message_value(Nokogiri::XML(message).root).should == 100.12
   end
 
-  it "should parse a returned boolean true" do
+  it "should parse a boolean true" do
     message = '<return value="true" dataType="boolean"/>'
     @bridge.parse_message_value(Nokogiri::XML(message).root).should == true
   end
 
-  it "should parse a returned boolean false" do
+  it "should parse a boolean false" do
     message = '<return value="false" dataType="boolean"/>'
     @bridge.parse_message_value(Nokogiri::XML(message).root).should == false
   end
 
-  it "should parse a returned string" do
+  it "should parse a string" do
     message = '<return value="foo" dataType="string"/>'
     @bridge.parse_message_value(Nokogiri::XML(message).root).should == 'foo'
   end
 
-  it "should parse a returned object proxy" do
+  it "should parse an object proxy" do
     message = '<return value="123" dataType="object"/>'
     proxy = @bridge.parse_message_value(Nokogiri::XML(message).root)
     proxy.class.should == Melomel::ObjectProxy
@@ -89,8 +99,67 @@ describe "Bridge" do
     proxy.bridge.should == @bridge
   end
 
+  it "should throw an error when parsing an unknown type" do
+    message = '<return value="foo" dataType="unknown_type"/>'
+    lambda {@bridge.parse_message_value(Nokogiri::XML(message).root)}.should raise_error(Melomel::UnrecognizedTypeError)
+  end
+end
+
+describe "Bridge Message Formatting" do
+  before do
+    @bridge = Melomel::Bridge.new('localhost', 10101)
+  end
+  
+  it "should format nil" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, nil)
+    xml.to_s.should == '<root dataType="null"/>'
+  end
+  
+  it "should format an integer" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, 12)
+    xml.to_s.should == '<root value="12" dataType="int"/>'
+  end
+  
+  it "should format a float" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, 100.12)
+    xml.to_s.should == '<root value="100.12" dataType="float"/>'
+  end
+
+  it "should format a boolean true" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, true)
+    xml.to_s.should == '<root value="true" dataType="boolean"/>'
+  end
+
+  it "should format a boolean false" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, false)
+    xml.to_s.should == '<root value="false" dataType="boolean"/>'
+  end
+
+  it "should format a string" do
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, 'foo')
+    xml.to_s.should == '<root value="foo" dataType="string"/>'
+  end
+
+  it "should format an object" do
+    proxy = Melomel::ObjectProxy(@bridge, 123)
+    xml = Nokogiri::XML('<root/>').root
+    @bridge.format_message_value(xml, proxy)
+    xml.to_s.should == '<root value="123" dataType="object"/>'
+  end
+end
+
+describe "Bridge Actions" do
+  before do
+    @bridge = Melomel::Bridge.new('localhost', 10101)
+  end
+  
   it "should execute a get command" do
-    connect()
     @bridge.should_receive(:send).with('<get object="123" property="foo"/>')
     @bridge.should_receive(:receive).and_return('<return value="bar" dataType="string"/>')
     @bridge.get_property(123, 'foo').should == 'bar'

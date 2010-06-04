@@ -1,6 +1,6 @@
 require 'socket'
-require 'nokogiri'
-
+require 'melomel/bridge/messaging'
+    
 # The bridge manages the connection to the Flash virtual machine. All messages
 # sent to the virtual machine are passed through this object.
 module Melomel
@@ -55,52 +55,6 @@ module Melomel
       @socket.gets("\x00").chomp("\x00")
     end
 
-    # Retrieves a property of an object in the Flash virtual machine
-    def get_property(proxy_id, property)
-      send("<get object=\"#{proxy_id}\" property=\"#{property}\"/>")
-      parse_message_value(Nokogiri::XML(receive()).root)
-    end
-
-    # Formats a 
-    def parse_message_value(message)
-      xml = Nokogiri::XML(message)
-      value = xml.root['value']
-      data_type = xml.root['dataType']
-      
-      if data_type == 'int'
-        return value.to_i
-      elsif data_type == 'float'
-        return value.to_f
-      elsif data_type == 'boolean'
-        return value == 'true'
-      elsif data_type == 'object'
-        return Melomel::ObjectProxy.new(self, value.to_i)
-      elsif data_type == 'string' || data_type.nil?
-        return value
-      else
-        raise UnrecognizedTypeError, "Unknown type: #{data_type}"
-      end
-    end
-
-    # Parses a return message and converts it into an appropriate type
-    def parse_message_value(xml)
-      value = xml['value']
-      data_type = xml['dataType']
-      
-      if data_type == 'int'
-        return value.to_i
-      elsif data_type == 'float'
-        return value.to_f
-      elsif data_type == 'boolean'
-        return value == 'true'
-      elsif data_type == 'object'
-        return Melomel::ObjectProxy.new(self, value.to_i)
-      elsif data_type == 'string' || data_type.nil?
-        return value
-      else
-        raise UnrecognizedTypeError, "Unknown type: #{data_type}"
-      end
-    end
 
     private
     def send_policy_file(socket)
