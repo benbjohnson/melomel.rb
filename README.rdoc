@@ -1,0 +1,7 @@
+= Melomel.rb
+
+Melomel.rb is a Ruby library for working with Flash objects through the Melomel
+Flash library. Melomel works by providing simple object access methods to the
+developer and proxying objects so that all state is left in the Flash virtual
+machine.
+
