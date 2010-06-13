@@ -1,0 +1,22 @@
+<flex-config>
+	<output>../../../target/MelomelRunner.swf</output>
+	<target-player>10.0.0</target-player>
+	<benchmark>false</benchmark>
+	<warnings>true</warnings>
+
+	<compiler>
+		<debug>true</debug>
+		<allow-source-path-overlap>true</allow-source-path-overlap>
+		
+		<source-path>
+			<path-element>../flex</path-element>
+		</source-path>
+
+		<library-path append="true">
+			<path-element>melomel-1.0.swc</path-element>
+		</library-path>
+		
+		<verbose-stacktraces>true</verbose-stacktraces>
+		<headless-server>true</headless-server>
+	</compiler>
+</flex-config>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	name="Melomel Runner"
+	creationComplete="onCreationComplete(event)"
+>
+	<fx:Script>
+		<![CDATA[
+		//----------------------------------------------------------------------
+		//
+		//	Static methods
+		//
+		//----------------------------------------------------------------------
+
+		static public function hello(name:String):String
+		{
+			return "Hello, " + name;
+		}
+
+
+		//----------------------------------------------------------------------
+		//
+		//	Static properties
+		//
+		//----------------------------------------------------------------------
+
+		static public var foo:String = "bar";
+		static public var name:String = "John";
+
+		
+		//----------------------------------------------------------------------
+		//
+		//	Events
+		//
+		//----------------------------------------------------------------------
+
+		private function onCreationComplete(event:Event):void
+		{
+			Melomel.debug = true;
+			Melomel.connect();
+		}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:TextInput id="nameTextInput" text="John"/>
+	
+	<s:VGroup>
+		<s:ComboBox id="colorCombo" labelField="name">
+			<s:ArrayList>
+				<fx:Object name="Blue"/>
+				<fx:Object name="Green"/>
+				<fx:Object name="Red"/>
+			</s:ArrayList>
+		</s:ComboBox>
+	</s:VGroup>
+</s:Application>

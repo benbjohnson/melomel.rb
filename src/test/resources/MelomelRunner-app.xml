@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/2.0">
+    <id>melomel.MelomelRunner</id>
+    <version>1.0</version>
+    <filename>MelomelRunner</filename>
+    <name>MelomelRunner</name>
+    <initialWindow>
+        <title>MelomelRunner</title>
+        <content>MelomelRunner.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <minimizable>true</minimizable>
+        <maximizable>false</maximizable>
+        <resizable>true</resizable>
+        <x>0</x>
+        <y>0</y>
+        <width>640</width>
+        <height>480</height>
+    </initialWindow> 
+    <installFolder>Melomel/MelomelRunner</installFolder>
+    <programMenuFolder>Melomel</programMenuFolder>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+</application>

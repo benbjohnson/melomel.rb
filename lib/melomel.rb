@@ -19,5 +19,15 @@ module Melomel
       @bridge = Melomel::Bridge.new(host, port)
       @bridge.connect();
     end
+
+    # Retrieves a reference to a class
+    def get_class(class_name)
+      @bridge.get_class(class_name)
+    end
+
+    # Creates an object in the virtual machine.
+    def create_object(class_name)
+      @bridge.create_object(class_name)
+    end
   end
 end

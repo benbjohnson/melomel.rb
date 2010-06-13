@@ -147,7 +147,7 @@ describe "Bridge Message Formatting" do
   end
 
   it "should format an object" do
-    proxy = Melomel::ObjectProxy(@bridge, 123)
+    proxy = Melomel::ObjectProxy.new(@bridge, 123)
     xml = Nokogiri::XML('<root/>').root
     @bridge.format_message_value(xml, proxy)
     xml.to_s.should == '<root value="123" dataType="object"/>'
@@ -159,9 +159,33 @@ describe "Bridge Actions" do
     @bridge = Melomel::Bridge.new('localhost', 10101)
   end
   
-  it "should execute a get command" do
+  it "should execute a 'get' command" do
     @bridge.should_receive(:send).with('<get object="123" property="foo"/>')
     @bridge.should_receive(:receive).and_return('<return value="bar" dataType="string"/>')
     @bridge.get_property(123, 'foo').should == 'bar'
+  end
+  
+  it "should execute a 'set' command" do
+    @bridge.should_receive(:send).with("<set object=\"123\" property=\"foo\">\n<arg value=\"bar\" dataType=\"string\"/>\n</set>")
+    @bridge.should_receive(:receive).and_return('<return value="bar" dataType="string"/>')
+    @bridge.set_property(123, 'foo', 'bar').should == 'bar'
+  end
+  
+  it "should execute an 'invoke' command" do
+    @bridge.should_receive(:send).with("<invoke object=\"123\" method=\"foo\">\n<args>\n<arg value=\"John\" dataType=\"string\"/>\n<arg value=\"12\" dataType=\"int\"/>\n</args>\n</invoke>")
+    @bridge.should_receive(:receive).and_return('<return value="John is 12" dataType="string"/>')
+    @bridge.invoke_method(123, 'foo', 'John', 12).should == 'John is 12'
+  end
+  
+  it "should execute a 'create' command" do
+    @bridge.should_receive(:send).with("<create class=\"flash.geom.Point\"/>")
+    @bridge.should_receive(:receive).and_return('<return value="123" dataType="object"/>')
+    @bridge.create_object('flash.geom.Point').proxy_id.should == 123
+  end
+  
+  it "should execute a 'get-class' command" do
+    @bridge.should_receive(:send).with("<get-class name=\"flash.geom.Point\"/>")
+    @bridge.should_receive(:receive).and_return('<return value="123" dataType="object"/>')
+    @bridge.get_class('flash.geom.Point').proxy_id.should == 123
   end
 end

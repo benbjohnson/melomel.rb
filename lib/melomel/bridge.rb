@@ -47,7 +47,7 @@ module Melomel
 
     # Sends a message over to the Flash bridge.
     def send(message)
-      @socket.send("#{message}\x00")
+      @socket.puts("#{message}\x00")
     end
 
     # Receives a message from the Flash bridge. This is a blocking call.

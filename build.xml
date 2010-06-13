@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="melomel.rb" basedir=".">
+	<!-- Properties -->
+	<property environment="env"/>
+	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
+    <property name="mxmlc.jar" value="${FLEX_HOME}/lib/mxmlc.jar" />
+
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="target.dir" value="${basedir}/target"/>
+
+	<!-- Target: Compile -->
+	<!-- mxmlc -load-config+=src/test/resources/MelomelRunner-config.xml src/test/flex/MelomelRunner.mxml -->
+	<target name="compile" depends="copy-deps">
+		<mkdir dir="${target.dir}"/>
+		<java jar="${mxmlc.jar}" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+			<arg value="-load-config+=${src.dir}/test/resources/MelomelRunner-config.xml"/>
+			<arg value="${src.dir}/test/flex/MelomelRunner.mxml"/>
+		</java>
+	</target>
+
+	<target name="copy-deps">
+		<copy file="${src.dir}/test/resources/MelomelRunner-app.xml" todir="${target.dir}" overwrite="true"/>
+	</target>
+
+	<!-- Target: Clean -->
+	<target name="clean">
+		<delete dir="${target.dir}"/>
+	</target>
+</project>
