@@ -1,5 +1,6 @@
 require 'melomel/bridge'
 require 'melomel/object_proxy'
+require 'melomel/ui'
 require 'melomel/version'
 
 # This class acts as a singleton instance of the bridge. This is typically the

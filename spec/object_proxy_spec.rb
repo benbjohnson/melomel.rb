@@ -21,6 +21,11 @@ describe "Object Proxy" do
     @proxy.invoke_method('foo', 'bar', 'baz')
   end
   
+  it "should alias invoke() to invoke_method()" do
+    @bridge.should_receive(:invoke_method).with(123, 'foo')
+    @proxy.invoke('foo')
+  end
+  
   it "should alias accessors to get_property()" do
     @proxy.should_receive(:get_property).with('foo')
     @proxy.foo
@@ -34,5 +39,10 @@ describe "Object Proxy" do
   it "should alias methods with arguments to invoke_method()" do
     @proxy.should_receive(:invoke_method).with('foo', 'bar', 'baz')
     @proxy.foo('bar', 'baz')
+  end
+  
+  it "should alias methods ending in '!' to invoke_method()" do
+    @proxy.should_receive(:invoke_method).with('foo')
+    @proxy.foo!()
   end
 end

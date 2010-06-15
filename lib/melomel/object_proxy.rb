@@ -33,19 +33,25 @@ module Melomel
       @bridge.invoke_method(@proxy_id, method_name, *args)
     end
     
+    alias :invoke :invoke_method
+    
     # Proxies all methods to the appropriate Flash objects.
     def method_missing(symbol, *args)
       method_name = symbol.to_s
+      last_char = method_name.to_s[-1,1]
       
       # Methods ending in "=" are aliased to set_property
-      if method_name.to_s[-1,1] == '='
+      if last_char == '='
         return set_property(method_name.chop, *args)
-      # Methods with no arguments are aliased to get_property
-      elsif args.length == 0
-        return get_property(method_name)
-      # Everything else is assumed to be a method invocation
-      else
+      # Methods with arguments are methods
+      elsif args.length > 0
         return invoke_method(method_name, *args)
+      # Methods ending in '!' are methods
+      elsif last_char == '!'
+        return invoke_method(method_name.chop, *args)
+      # Methods with no arguments are aliased to get_property
+      else
+        return get_property(method_name)
       end
     end
   end

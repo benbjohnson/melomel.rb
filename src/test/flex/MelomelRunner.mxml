@@ -47,9 +47,12 @@
 		<s:VerticalLayout/>
 	</s:layout>
 	
-	<s:TextInput id="nameTextInput" text="John"/>
+	<s:TextInput id="nameTextInput" name="nameTextField" text="John"/>
+	
+	<s:Label name="foo" text="x"/>
 	
 	<s:VGroup>
+		<s:Label name="foo" text="y"/>
 		<s:ComboBox id="colorCombo" labelField="name">
 			<s:ArrayList>
 				<fx:Object name="Blue"/>
@@ -58,4 +61,36 @@
 			</s:ArrayList>
 		</s:ComboBox>
 	</s:VGroup>
+
+	<s:Label name="foo" text="z"/>
+
+	<s:HGroup>
+		<s:VGroup>
+			<s:Label id="clickLabel"/>
+			<s:Button id="clickButton" label="Hello" click="clickLabel.text='Hello!'"/>
+		</s:VGroup>
+
+		<s:VGroup>
+			<s:Label id="doubleClickLabel"/>
+			<s:Button id="doubleClickButton" doubleClickEnabled="true" label="Hello X2" click="doubleClickLabel.text='Hello Hello!'"/>
+		</s:VGroup>
+
+		<s:VGroup>
+			<s:Label id="keyDownLabel"/>
+			<s:TextInput id="keyDownTextInput" keyDown="keyDownLabel.text = String.fromCharCode(event.charCode)"/>
+		</s:VGroup>
+		
+		<s:VGroup>
+			<s:Label id="keyUpLabel"/>
+			<s:TextInput id="keyUpTextInput" keyUp="keyUpLabel.text = String.fromCharCode(event.charCode)"/>
+		</s:VGroup>
+
+		<s:VGroup>
+			<s:Label id="keyPressLabel"/>
+			<s:TextInput id="keyPressTextInput"
+				 keyDown="keyPressLabel.text += 'd'"
+				 keyUp="keyPressLabel.text += 'u'"
+			/>
+		</s:VGroup>
+	</s:HGroup>
 </s:Application>

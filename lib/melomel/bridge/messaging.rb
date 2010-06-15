@@ -50,8 +50,23 @@ module Melomel
       parse_message_value(Nokogiri::XML(receive()).root)
     end
 
+    # Creates an object proxy from a hash
+    def create_hash(hash)
+      proxy = create_object('Object')
+      hash.each_pair do |k,v|
+        v = create_hash(v) if !v.nil? && v.is_a?(Hash)
+        proxy.set_property(k, v)
+      end
+      return proxy
+    end
+
     # Formats a Ruby value into an XML message
     def format_message_value(xml, value)
+      # Automatically convert simple hashes to objects
+      if(!value.nil? && value.is_a?(Hash))
+        value = create_hash(value)
+      end
+      
       if value.nil?
         xml['dataType'] = 'null'
       elsif value.class == Fixnum || value.class == Bignum

@@ -21,7 +21,7 @@ describe "Bridge" do
   
   it "should send messages over a socket connection" do
     connect()
-    @socket.should_receive(:send).with("<message/>\x00")
+    @socket.should_receive(:puts).with("<message/>\x00")
     @bridge.send('<message/>')
   end
 

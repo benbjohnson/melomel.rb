@@ -1,5 +1,6 @@
 require 'socket'
 require 'melomel/bridge/messaging'
+require 'melomel/bridge/ui'
     
 # The bridge manages the connection to the Flash virtual machine. All messages
 # sent to the virtual machine are passed through this object.
