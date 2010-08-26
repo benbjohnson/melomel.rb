@@ -15,9 +15,9 @@ uses [TomDoc](http://tomdoc.org/) for inline documentation.
 
 ## INSTALLATION
 
-To install Melomel.rb simply use RubyGems:
+To install Melomel for Ruby simply use RubyGems:
 
-    $ [sudo] gem install melomel.rb
+    $ [sudo] gem install melomel
 
 Melomel needs to be embedded and running in the application you're trying to
 connect to. Please see the Melomel repository for instructions on installation.
