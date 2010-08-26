@@ -4,7 +4,7 @@ describe "Melomel UI" do
   before(:all) do
     # Make sure FLEX_HOME is defined
     raise 'FLEX_HOME environment variable must be set' if ENV['FLEX_HOME'].nil?
-
+    
     # Open up the sandbox
     @pid = fork do
       exec("#{ENV['FLEX_HOME']}/bin/adl target/MelomelRunner-app.xml")

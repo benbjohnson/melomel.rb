@@ -11,6 +11,7 @@ module Melomel
     def initialize(host='localhost', port=10101)
       self.host = host
       self.port = port
+      server, @socket = nil, nil
     end
     
     # Opens a socket connection to listen for incoming bridge connections. This
@@ -19,11 +20,11 @@ module Melomel
       disconnect()
       
       # Listen for connections
-      @server = TCPServer.open(host, port)
+      server = TCPServer.open(host, port)
       
       # Retrieve socket and check for initial handshake
       while(@socket.nil?) do
-        socket = @server.accept()
+        socket = server.accept()
         data = socket.gets("\x00").chomp("\x00")
         
         # Send policy file if requested.
@@ -34,6 +35,8 @@ module Melomel
           @socket = socket
         end
       end
+
+      server.close();
     end
 
     # Closes any open connection to a Flash virtual machine.
