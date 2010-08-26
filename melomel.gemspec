@@ -9,16 +9,17 @@ Gem::Specification.new do |s|
   s.version     = Melomel::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Ben Johnson"]
-  s.email       = ["ben@leafedbox.com"]
-  s.homepage    = "http://github.com/benbjohnson/melomel"
-  s.summary     = "External interface to Flash through Ruby"
-  s.description = "The best way to interact with your Flash objects through Ruby."
+  s.email       = ["benbjohnson@yahoo.com"]
+  s.homepage    = "http://github.com/benbjohnson/melomel.rb"
+  s.summary     = "A Ruby interface to Melomel"
+
+  s.add_dependency('nokogiri', '~> 1.4.3')
 
   s.required_rubygems_version = ">= 1.3.6"
-  s.rubyforge_project         = "melomel"
 
-  s.add_development_dependency "rspec"
+  s.add_development_dependency 'rspec'
 
+  s.test_files   = Dir.glob("spec/**/*")
   s.files        = Dir.glob("lib/**/*") + %w(LICENSE README CHANGELOG)
   s.require_path = 'lib'
 end
