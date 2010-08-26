@@ -16,6 +16,7 @@ describe "Melomel Integration" do
   end
 
   after(:all) do
+    sleep 2
     Process.kill('KILL', @pid)
   end
 
