@@ -1,7 +1,16 @@
 require 'rubygems'
 require 'rake'
-require 'spec/rake/spectask'
+require 'minitest/autorun'
+require 'rake/testtask'
 
-Spec::Rake::SpecTask.new do |t|
-  t.warning = true
+#############################################################################
+#
+# Standard tasks
+#
+#############################################################################
+  
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end

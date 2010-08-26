@@ -1,70 +1,59 @@
-require 'spec_helper'
+require File.join(File.dirname(File.expand_path(__FILE__)), *%w[helper])
 
-describe "Melomel UI" do
-  before(:all) do
-    # Make sure FLEX_HOME is defined
-    raise 'FLEX_HOME environment variable must be set' if ENV['FLEX_HOME'].nil?
-    
-    # Open up the sandbox
-    @pid = fork do
-      exec("#{ENV['FLEX_HOME']}/bin/adl target/MelomelRunner-app.xml")
-    end
-    Process.detach(@pid)
-    
-    # Connect to the sandbox Flash file
+class IntegrationTestCase < RunnerTestCase
+  def setup
+    start_runner
     Melomel.connect()
   end
 
-  after(:all) do
-    sleep 2
-    Process.kill('KILL', @pid)
+  def teardown
+    stop_runner
   end
 
-
-  it "should find a list of labels named 'foo'" do
+  def test_should_find_list_of_labels_named_foo
     labels = Melomel::UI.find_all('spark.components.Label', :name => 'foo')
-    labels.length.should == 3
+    assert_equal 3, labels.length
   end
 
-  it "should find the text input" do
+  def should_find_text_input
     text_input = Melomel::UI.find('spark.components.TextInput', :id => 'nameTextInput')
-    text_input.name.should == 'nameTextField'
+    assert_equal 'nameTextField', text_input.name
   end
   
 
-  it "should click the button" do
+  def test_should_click_button
     button = Melomel::UI.find('spark.components.Button', :id => 'clickButton')
     label = Melomel::UI.find('spark.components.Label', :id => 'clickLabel')
     Melomel::UI.click(button)
-    label.text.should == 'Hello!'
+    assert_equal 'Hello!', label.text
   end
 
-  it "should double click the button" do
+  def test_should_double_click_the_button
     button = Melomel::UI.find('spark.components.Button', :id => 'doubleClickButton')
     label = Melomel::UI.find('spark.components.Label', :id => 'doubleClickLabel')
     Melomel::UI.double_click(button)
-    label.text.should == 'Hello Hello!'
+    assert_equal 'Hello Hello!', label.text
   end
 
 
-  it "should press a key down" do
+  def test_should_press_key_down
     text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyDownTextInput')
     label = Melomel::UI.find('spark.components.Label', :id => 'keyDownLabel')
     Melomel::UI.key_down(text_input, 'a')
-    label.text.should == 'a'
+    assert_equal 'a', label.text
   end
 
-  it "should release a key up" do
+  def test_should_release_key_up
     text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyUpTextInput')
     label = Melomel::UI.find('spark.components.Label', :id => 'keyUpLabel')
     Melomel::UI.key_up(text_input, 'b')
-    label.text.should == 'b'
+    assert_equal 'b', label.text
   end
 
-  it "should press a key" do
+  def test_should_press_key
     text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyPressTextInput')
     label = Melomel::UI.find('spark.components.Label', :id => 'keyPressLabel')
     Melomel::UI.key_press(text_input, 'a')
-    label.text.should == 'du'
+    assert_equal 'du', label.text
   end
 end
