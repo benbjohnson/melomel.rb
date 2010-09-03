@@ -116,8 +116,10 @@ your dependencies:
 	[sudo] bundle install
 
 If you are adding new features, please add test coverage to all code that you
-write. Run the test suite with `rake`:
+write. First compile the Flex application and then run the test suite with
+`rake`:
 
+	ant
 	rake test
 
 
