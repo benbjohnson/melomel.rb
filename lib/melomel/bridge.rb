@@ -68,7 +68,7 @@ module Melomel
       policy << '<cross-domain-policy>'
       policy << "<allow-access-from domain=\"#{host}\" to-ports=\"#{port}\"/>"
       policy << '</cross-domain-policy>'
-      socket.send(policy)
+      socket.send(policy, 0)
       socket.flush()
       socket.close()
     end

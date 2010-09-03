@@ -44,7 +44,7 @@ class BridgeTestCase < MiniTest::Unit::TestCase
     # Mock policy file
     policy_socket = mock('policy_socket')
     policy_socket.expects(:gets).returns("<policy-file-request/>\x00")
-    policy_socket.expects(:send).with(policy)
+    policy_socket.expects(:send).with(policy, 0)
     policy_socket.expects(:flush)
     policy_socket.expects(:close)
     
