@@ -1,0 +1,16 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    minitest (1.7.1)
+    mocha (0.9.8)
+      rake
+    nokogiri (1.4.3.1)
+    rake (0.8.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest (~> 1.7.0)
+  mocha (~> 0.9.8)
+  nokogiri (~> 1.4.3)
