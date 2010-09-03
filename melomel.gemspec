@@ -3,6 +3,7 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 require 'melomel/version'
+require 'bundler'
 
 Gem::Specification.new do |s|
   s.name        = "melomel"
@@ -16,6 +17,6 @@ Gem::Specification.new do |s|
   s.add_bundler_dependencies
 
   s.test_files   = Dir.glob("test/**/*")
-  s.files        = Dir.glob("lib/**/*") + %w(LICENSE README CHANGELOG)
+  s.files        = Dir.glob("lib/**/*") + %w(README.md CHANGELOG.md)
   s.require_path = 'lib'
 end
