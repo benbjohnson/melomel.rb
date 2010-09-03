@@ -11,49 +11,49 @@ class IntegrationTestCase < RunnerTestCase
   end
 
   def test_should_find_list_of_labels_named_foo
-    labels = Melomel::UI.find_all('spark.components.Label', :name => 'foo')
+    labels = Melomel.find_all('spark.components.Label', :name => 'foo')
     assert_equal 3, labels.length
   end
 
   def should_find_text_input
-    text_input = Melomel::UI.find('spark.components.TextInput', :id => 'nameTextInput')
+    text_input = Melomel.find('spark.components.TextInput', :id => 'nameTextInput')
     assert_equal 'nameTextField', text_input.name
   end
   
 
   def test_should_click_button
-    button = Melomel::UI.find('spark.components.Button', :id => 'clickButton')
-    label = Melomel::UI.find('spark.components.Label', :id => 'clickLabel')
-    Melomel::UI.click(button)
+    button = Melomel.find('spark.components.Button', :id => 'clickButton')
+    label = Melomel.find('spark.components.Label', :id => 'clickLabel')
+    Melomel.click(button)
     assert_equal 'Hello!', label.text
   end
 
   def test_should_double_click_the_button
-    button = Melomel::UI.find('spark.components.Button', :id => 'doubleClickButton')
-    label = Melomel::UI.find('spark.components.Label', :id => 'doubleClickLabel')
-    Melomel::UI.double_click(button)
+    button = Melomel.find('spark.components.Button', :id => 'doubleClickButton')
+    label = Melomel.find('spark.components.Label', :id => 'doubleClickLabel')
+    Melomel.double_click(button)
     assert_equal 'Hello Hello!', label.text
   end
 
 
   def test_should_press_key_down
-    text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyDownTextInput')
-    label = Melomel::UI.find('spark.components.Label', :id => 'keyDownLabel')
-    Melomel::UI.key_down(text_input, 'a')
+    text_input = Melomel.find('spark.components.TextInput', :id => 'keyDownTextInput')
+    label = Melomel.find('spark.components.Label', :id => 'keyDownLabel')
+    Melomel.key_down(text_input, 'a')
     assert_equal 'a', label.text
   end
 
   def test_should_release_key_up
-    text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyUpTextInput')
-    label = Melomel::UI.find('spark.components.Label', :id => 'keyUpLabel')
-    Melomel::UI.key_up(text_input, 'b')
+    text_input = Melomel.find('spark.components.TextInput', :id => 'keyUpTextInput')
+    label = Melomel.find('spark.components.Label', :id => 'keyUpLabel')
+    Melomel.key_up(text_input, 'b')
     assert_equal 'b', label.text
   end
 
   def test_should_press_key
-    text_input = Melomel::UI.find('spark.components.TextInput', :id => 'keyPressTextInput')
-    label = Melomel::UI.find('spark.components.Label', :id => 'keyPressLabel')
-    Melomel::UI.key_press(text_input, 'a')
+    text_input = Melomel.find('spark.components.TextInput', :id => 'keyPressTextInput')
+    label = Melomel.find('spark.components.Label', :id => 'keyPressLabel')
+    Melomel.key_press(text_input, 'a')
     assert_equal 'du', label.text
   end
 end

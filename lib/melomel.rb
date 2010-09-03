@@ -21,9 +21,13 @@ module Melomel
       @bridge.connect();
     end
 
+    def method_missing(method, *args)
+      @bridge.send(method.to_sym, *args)
+    end
+    
     # Retrieves a reference to a class
-    def get_class(class_name)
-      @bridge.get_class(class_name)
+    def get_class(*args)
+      @bridge.get_class(*args)
     end
 
     # Creates an object in the virtual machine.
