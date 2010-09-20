@@ -34,5 +34,10 @@ module Melomel
     def create_object(class_name)
       @bridge.create_object(class_name)
     end
+    
+    # Invokes package level function
+    def invoke_function(function, *args)
+      @bridge.invoke_function(function, *args)
+    end
   end
 end
