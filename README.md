@@ -41,6 +41,8 @@ After it's connected, there are several actions you can perform:
 1. Get Property
 1. Set Property
 1. Invoke Method
+1. Invoke Function
+
 
 ## API
 
@@ -106,6 +108,14 @@ In this example, the `getData` method could be called on the object directly
 because it had more than one argument. The `clear` method, however, required
 that a bang character be appended to the name or that the `invoke_method` be
 used.
+
+### Invoke Function
+
+Invoking package level functions is also handled transparently.
+
+	className = Melomel.invoke_function('flash.utils.getQualifiedClassName', "Some string.")
+
+The className will contain "String".
 
 
 ## HACKING
