@@ -38,4 +38,9 @@ class IntegrationTestCase < RunnerTestCase
     point.y = 40
     assert_equal 50, point.length
   end
+  
+  def test_should_invoke_function
+    result = Melomel.invoke_function('flash.utils.getQualifiedClassName', 'Some string.')
+    assert_equal 'String', result
+  end
 end
