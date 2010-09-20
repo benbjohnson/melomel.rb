@@ -1,5 +1,5 @@
 ### Melomel 0.3.0
-* Added invoke_function for package level functions invocation.
+* Added `Melomel.invoke_function()` for package level functions invocation. (Nikita Dudnik)
 
 ### Melomel 0.2.0
 * Moved `Melomel::UI` methods into `Melomel`.
