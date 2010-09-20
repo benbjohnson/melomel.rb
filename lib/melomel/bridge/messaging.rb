@@ -49,6 +49,23 @@ module Melomel
       send(xml.root.to_xml(:indent => 0))
       parse_message_value(Nokogiri::XML(receive()).root)
     end
+    
+    # Invokes a package level function in the Flash virtual machine
+    def invoke_function(function, *args)
+       xml = Nokogiri::XML("<invoke-function name=\"#{function}\"><args/></invoke>")
+
+        # Loop over and add arguments to call
+        args_node = xml.at_xpath('invoke-function/args')
+        args.each do |arg|
+          arg_node = Nokogiri::XML::Node.new('arg', xml)
+          format_message_value(arg_node, arg)
+          args_node.add_child(arg_node)
+        end
+
+        # Send and receive
+        send(xml.root.to_xml(:indent => 0))
+        parse_message_value(Nokogiri::XML(receive()).root)
+    end
 
     # Creates an object proxy from a hash
     def create_hash(hash)
