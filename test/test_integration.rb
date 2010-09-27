@@ -20,6 +20,12 @@ class IntegrationTestCase < RunnerTestCase
     assert_equal 'bar', runner.foo
   end
 
+  # Tests the ability for a get_property to call a no-arg method if unavailable.
+  def test_should_get_property_passthrough
+    app = Melomel.get_class('mx.core.FlexGlobals').topLevelApplication
+    assert_equal 'ok', app.test()
+  end
+
   def test_should_set_property
     runner = Melomel.get_class('MelomelRunner')
     runner.name = 'Susy'

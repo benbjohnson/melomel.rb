@@ -40,9 +40,4 @@ class ObjectProxyTestCase < MiniTest::Unit::TestCase
     @proxy.expects(:invoke_method).with('foo', 'bar', 'baz')
     @proxy.foo('bar', 'baz')
   end
-  
-  def test_should_alias_methods_ending_in_bang_to_invoke_method
-    @proxy.expects(:invoke_method).with('foo')
-    @proxy.foo!()
-  end
 end

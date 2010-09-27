@@ -46,9 +46,6 @@ module Melomel
       # Methods with arguments are methods
       elsif args.length > 0
         return invoke_method(method_name, *args)
-      # Methods ending in '!' are methods
-      elsif last_char == '!'
-        return invoke_method(method_name.chop, *args)
       # Methods with no arguments are aliased to get_property
       else
         return get_property(method_name)
