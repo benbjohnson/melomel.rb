@@ -1,3 +1,6 @@
+### Melomel 0.3.1
+* Removed requirement for adding a bang to the end of no-arg methods.
+
 ### Melomel 0.3.0
 * Added `Melomel.invoke_function()` for package level functions invocation. (Nikita Dudnik)
 

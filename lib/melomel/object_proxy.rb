@@ -22,15 +22,28 @@ module Melomel
       @bridge.get_property(@proxy_id, name)
     end
     
+    def get_property!(name)
+      @bridge.get_property!(@proxy_id, name)
+    end
+    
     # Sets the value of a property for the proxied object.
     def set_property(name, value)
       @bridge.set_property(@proxy_id, name, value)
+    end
+
+    # Sets the value of a property for the proxied object.
+    def set_property!(name, value)
+      @bridge.set_property!(@proxy_id, name, value)
     end
     
     # Invokes a method on the proxied object. Arguments passed into the method
     # are passed through to the invoked method
     def invoke_method(method_name, *args)
       @bridge.invoke_method(@proxy_id, method_name, *args)
+    end
+
+    def invoke_method!(method_name, *args)
+      @bridge.invoke_method!(@proxy_id, method_name, *args)
     end
     
     alias :invoke :invoke_method
@@ -45,10 +58,18 @@ module Melomel
         return set_property(method_name.chop, *args)
       # Methods with arguments are methods
       elsif args.length > 0
-        return invoke_method(method_name, *args)
+        if last_char == '!'
+          return invoke_method!(method_name, *args)
+        else
+          return invoke_method(method_name, *args)
+        end
       # Methods with no arguments are aliased to get_property
       else
-        return get_property(method_name)
+        if last_char == '!'
+          return get_property!(method_name)
+        else
+          return get_property(method_name)
+        end
       end
     end
   end

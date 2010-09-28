@@ -20,6 +20,11 @@ class IntegrationTestCase < RunnerTestCase
     assert_equal 'bar', runner.foo
   end
 
+  def test_should_get_missing_property_as_nil
+    runner = Melomel.get_class('MelomelRunner')
+    assert_nil runner.no_such_property
+  end
+
   # Tests the ability for a get_property to call a no-arg method if unavailable.
   def test_should_get_property_passthrough
     app = Melomel.get_class('mx.core.FlexGlobals').topLevelApplication
@@ -30,7 +35,7 @@ class IntegrationTestCase < RunnerTestCase
     runner = Melomel.get_class('MelomelRunner')
     runner.name = 'Susy'
     assert_equal 'Susy', runner.name
-    runner.name = 'John' # TODO: Do not make other tests dependent on this
+    runner.name = 'John'
   end
 
   def test_should_invoke_method
