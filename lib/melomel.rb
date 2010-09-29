@@ -1,4 +1,7 @@
+$:.unshift(File.dirname(__FILE__)) unless $:.index(File.dirname(__FILE__))
+
 require 'melomel/bridge'
+require 'melomel/error'
 require 'melomel/object_proxy'
 require 'melomel/ui'
 require 'melomel/version'

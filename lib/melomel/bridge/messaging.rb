@@ -152,23 +152,39 @@ module Melomel
 
     # Parses a return message and converts it into an appropriate type
     def parse_message_value(xml)
-      value = xml['value']
-      data_type = xml['dataType']
+      name = xml.name()
       
-      if data_type == 'null'
-        return nil
-      elsif data_type == 'int'
-        return value.to_i
-      elsif data_type == 'float'
-        return value.to_f
-      elsif data_type == 'boolean'
-        return value == 'true'
-      elsif data_type == 'object'
-        return Melomel::ObjectProxy.new(self, value.to_i)
-      elsif data_type == 'string' || data_type.nil?
-        return value
+      # If we receive an error back then raise it in the Ruby VM.
+      if name == 'error'
+        stack_trace_xml = xml.at_xpath('stack-trace')
+        object      = Melomel::ObjectProxy.new(self, xml['proxyId'].to_i)
+        error_id    = xml['errorId'].to_i
+        message     = xml['message']
+        name        = xml['name']
+        stack_trace = stack_trace_xml ? stack_trace_xml.to_str : nil
+        $stderr.puts(stack_trace)
+        raise Melomel::Error.new(object, error_id, message, name, stack_trace), message
+
+      # Otherwise we have a return value so we should parse it.
       else
-        raise UnrecognizedTypeError, "Unknown type: #{data_type}"
+        value = xml['value']
+        data_type = xml['dataType']
+      
+        if data_type == 'null'
+          return nil
+        elsif data_type == 'int'
+          return value.to_i
+        elsif data_type == 'float'
+          return value.to_f
+        elsif data_type == 'boolean'
+          return value == 'true'
+        elsif data_type == 'object'
+          return Melomel::ObjectProxy.new(self, value.to_i)
+        elsif data_type == 'string' || data_type.nil?
+          return value
+        else
+          raise UnrecognizedTypeError, "Unknown type: #{data_type}"
+        end
       end
     end
     

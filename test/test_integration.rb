@@ -21,8 +21,22 @@ class IntegrationTestCase < RunnerTestCase
   end
 
   def test_should_get_missing_property_as_nil
+    app = Melomel.get_class('mx.core.FlexGlobals').topLevelApplication
+    assert_nil app.no_such_property
+  end
+
+  def test_should_throw_error_when_getting_missing_instance_property!
+    app = Melomel.get_class('mx.core.FlexGlobals').topLevelApplication
+    assert_raises Melomel::Error do
+      app.no_such_property!
+    end
+  end
+
+  def test_should_throw_error_when_getting_missing_static_property!
     runner = Melomel.get_class('MelomelRunner')
-    assert_nil runner.no_such_property
+    assert_raises Melomel::Error do
+      runner.no_such_property!
+    end
   end
 
   # Tests the ability for a get_property to call a no-arg method if unavailable.

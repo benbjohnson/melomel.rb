@@ -59,14 +59,14 @@ module Melomel
       # Methods with arguments are methods
       elsif args.length > 0
         if last_char == '!'
-          return invoke_method!(method_name, *args)
+          return invoke_method!(method_name.chop, *args)
         else
           return invoke_method(method_name, *args)
         end
       # Methods with no arguments are aliased to get_property
       else
         if last_char == '!'
-          return get_property!(method_name)
+          return get_property!(method_name.chop)
         else
           return get_property(method_name)
         end
