@@ -9,6 +9,7 @@
 	<property name="target.dir" value="${basedir}/target"/>
 
 	<!-- mxmlc -load-config+=src/test/resources/MelomelRunner-config.xml src/test/flex/MelomelRunner.mxml -->
+	<!-- mxmlc -load-config+=src/test/resources/CucumberRunner-config.xml src/test/flex/CucumberRunner.mxml -->
 	<target name="build" depends="deps">
 		<mkdir dir="${target.dir}"/>
 		<java jar="${mxmlc.jar}" fork="true" failonerror="true">
@@ -16,10 +17,17 @@
 			<arg value="-load-config+=${src.dir}/test/resources/MelomelRunner-config.xml"/>
 			<arg value="${src.dir}/test/flex/MelomelRunner.mxml"/>
 		</java>
+
+		<java jar="${mxmlc.jar}" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks"/>
+			<arg value="-load-config+=${src.dir}/test/resources/CucumberRunner-config.xml"/>
+			<arg value="${src.dir}/test/flex/CucumberRunner.mxml"/>
+		</java>
 	</target>
 
 	<target name="deps">
 		<copy file="${src.dir}/test/resources/MelomelRunner-app.xml" todir="${target.dir}" overwrite="true"/>
+		<copy file="${src.dir}/test/resources/CucumberRunner-app.xml" todir="${target.dir}" overwrite="true"/>
 	</target>
 
 	<!-- Target: Clean -->

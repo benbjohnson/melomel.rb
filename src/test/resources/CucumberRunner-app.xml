@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/2.0">
+    <id>melomel.CucumberRunner</id>
+    <version>1.0</version>
+    <filename>CucumberRunner</filename>
+    <name>CucumberRunner</name>
+    <initialWindow>
+        <title>CucumberRunner</title>
+        <content>CucumberRunner.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <minimizable>true</minimizable>
+        <maximizable>false</maximizable>
+        <resizable>true</resizable>
+        <x>0</x>
+        <y>0</y>
+        <width>640</width>
+        <height>480</height>
+    </initialWindow> 
+    <installFolder>Melomel/CucumberRunner</installFolder>
+    <programMenuFolder>Melomel</programMenuFolder>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+</application>

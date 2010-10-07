@@ -72,5 +72,23 @@ module Melomel
         end
       end
     end
+
+    # Array accessor.
+    def [](index)
+      if index.is_a?(Fixnum)
+        get_property("[#{index}]")
+      else
+        get_property(index.to_s)
+      end
+    end
+
+    # Array mutator.
+    def []=(index, value)
+      if index.is_a?(Fixnum)
+        set_property("[#{index}]", value)
+      else
+        set_property(index.to_s, value)
+      end
+    end
   end
 end

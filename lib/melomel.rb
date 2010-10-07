@@ -1,9 +1,11 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.index(File.dirname(__FILE__))
 
+require 'object'
 require 'melomel/bridge'
+require 'melomel/date'
 require 'melomel/error'
+require 'melomel/flex'
 require 'melomel/object_proxy'
-require 'melomel/ui'
 require 'melomel/version'
 
 # This class acts as a singleton instance of the bridge. This is typically the
@@ -25,7 +27,7 @@ module Melomel
     end
 
     def method_missing(method, *args)
-      @bridge.send(method.to_sym, *args)
+      @bridge.__send__(method.to_sym, *args)
     end
     
     # Retrieves a reference to a class

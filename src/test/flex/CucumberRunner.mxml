@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	name="Cucumber"
+	creationComplete="onCreationComplete(event)"
+>
+	<fx:Script>
+		<![CDATA[
+		import mx.controls.Alert;
+		import mx.events.CloseEvent;
+		
+		//----------------------------------------------------------------------
+		//
+		//	Properties
+		//
+		//----------------------------------------------------------------------
+
+		/**
+		 *	Stores the status of an action performed. This allows us to check
+		 *	that actions have occurred.
+		 */
+		static public var status:String = "";
+		
+
+		//----------------------------------------------------------------------
+		//
+		//	Events
+		//
+		//----------------------------------------------------------------------
+
+		private function onCreationComplete(event:Event):void
+		{
+			Melomel.debug = true;
+			Melomel.connect();
+		}
+		
+		private function alert_onClose(event:CloseEvent):void
+		{
+			switch(event.detail) {
+				case Alert.OK: status = 'ok'; break;
+				case Alert.CANCEL: status = 'cancel'; break;
+				case Alert.YES: status = 'yes'; break;
+				case Alert.NO: status = 'no'; break;
+			}
+		}
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	
+	<!-- Halo Components -->
+	<s:VGroup>
+		<mx:Button id="haloButton" label="Halo" click="status = 'Halo Button Clicked'"/>
+		<mx:Button id="haloToggleButton" label="Halo Toggle" toggle="true" click="haloToggleButton.selected = true"/>
+		<mx:CheckBox id="haloCheckBox" label="Halo CB"/>
+		<s:VGroup>
+			<mx:Label text="My Picker"/>
+			<mx:ColorPicker id="haloColorPicker"/>
+		</s:VGroup>
+		<mx:ComboBox id="haloComboBox" labelField="label">
+			<fx:Array>
+				<fx:Object label=""/>
+				<fx:Object label="foo"/>
+				<fx:Object label="bar"/>
+			</fx:Array>
+		</mx:ComboBox>
+		<mx:List id="haloList" labelField="label">
+			<fx:Array>
+				<fx:Object label=""/>
+				<fx:Object label="foo"/>
+				<fx:Object label="bar"/>
+			</fx:Array>
+		</mx:List>
+		<mx:DataGrid id="haloDataGrid">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Name" dataField="name"/>
+				<mx:DataGridColumn headerText="Address" dataField="address"/>
+				<mx:DataGridColumn headerText="City" dataField="city"/>
+				<mx:DataGridColumn headerText="State" dataField="state"/>
+			</mx:columns>
+			<fx:Array>
+				<fx:Object name="Susy Que" address="1000 Broadway St" city="Denver" state="CO"/>
+				<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO"/>
+			</fx:Array>
+		</mx:DataGrid>
+		<mx:DateChooser id="haloDateChooser"/>
+		<mx:DateField id="haloDateField"/>
+		<mx:HSlider id="haloHSlider" minimum="0" maximum="100"/>
+		<mx:VSlider id="haloVSlider" minimum="0" maximum="100"/>
+		<s:VGroup>
+			<mx:Label text="Halo Name"/>
+			<mx:Label text="John Smith"/>
+		</s:VGroup>
+		<mx:TextInput id="haloTextInput"/>
+		<mx:TextArea id="haloTextArea"/>
+		<mx:RadioButton label="Halo RB"/>
+	</s:VGroup>
+
+	<!-- Spark Components -->
+	<s:VGroup>
+		<s:Button id="sparkButton" label="Spark" click="status = 'Spark Button Clicked'"/>
+		<s:ToggleButton id="sparkToggleButton" label="Spark Toggle" click="sparkToggleButton.selected = true"/>
+		<s:CheckBox id="sparkCheckBox" label="Spark CB"/>
+		<s:ComboBox id="sparkComboBox" labelField="label">
+			<s:ArrayList>
+				<fx:Object label=""/>
+				<fx:Object label="foo"/>
+				<fx:Object label="bar"/>
+			</s:ArrayList>
+		</s:ComboBox>
+		<s:List id="sparkList" labelField="label">
+			<s:ArrayList>
+				<fx:Object label=""/>
+				<fx:Object label="foo"/>
+				<fx:Object label="bar"/>
+			</s:ArrayList>
+		</s:List>
+		<s:HSlider id="sparkHSlider" minimum="0" maximum="100"/>
+		<s:VSlider id="sparkVSlider" minimum="0" maximum="100"/>
+		<s:VGroup>
+			<mx:Label text="Spark Name"/>
+			<mx:Label text="Susy Que"/>
+		</s:VGroup>
+		<s:TextInput id="sparkTextInput"/>
+		<s:TextArea id="sparkTextArea"/>
+		<s:RadioButton label="Spark RB"/>
+	</s:VGroup>
+
+	<!-- Misc -->
+	<s:VGroup>
+		<mx:Button label="Show Alert" click="Alert.show('You have been alerted.', 'My Alert', Alert.OK|Alert.CANCEL|Alert.YES|Alert.NO, null, alert_onClose)"/>
+	</s:VGroup>
+</s:Application>

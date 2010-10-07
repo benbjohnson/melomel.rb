@@ -1,5 +1,5 @@
 <flex-config>
-	<output>../../../target/MelomelRunner.swf</output>
+	<output>../../../target/CucumberRunner.swf</output>
 	<target-player>10.0.0</target-player>
 	<benchmark>false</benchmark>
 	<warnings>true</warnings>
