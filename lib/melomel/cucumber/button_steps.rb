@@ -1,4 +1,4 @@
-When /^I click the "([^"]*)" (button|check box|radio button)$/ do |name, type|
+When /^I click the "([^"]*)" (button|check box|radio button|tab)$/ do |name, type|
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes(type)
     button = Melomel::Cucumber.find_by_label!(classes, name)

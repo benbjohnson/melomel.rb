@@ -35,6 +35,7 @@ module Melomel
         when 'progress bar' then ['mx.controls.ProgressBar']
         when 'radio button' then ['mx.controls.RadioButton', 'spark.components.RadioButton']
         when 'rich text area' then ['mx.controls.RichTextEditor', 'spark.components.RichEditableText']
+        when 'tab' then ['mx.controls.tabBarClasses.Tab']
         when 'text field' then ['mx.controls.TextInput', 'spark.components.TextInput']
         when 'text area' then ['mx.controls.TextArea', 'spark.components.TextArea']
         when 'tool tip' then ['mx.controls.ToolTip']

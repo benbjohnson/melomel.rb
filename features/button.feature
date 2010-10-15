@@ -46,3 +46,11 @@ Feature: Button-Based Controls
     When I click the "Spark RB" radio button
     Then I should see the "Spark RB" radio button selected
 
+
+  ##############################################################################
+  # Tabs
+  ##############################################################################
+
+  Scenario: Halo Tab Click
+    When I click the "Tab 1" tab
+    Then I should see "tab 1" in the "#tab1Label" label

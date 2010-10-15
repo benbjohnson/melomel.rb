@@ -13,7 +13,7 @@
 		</source-path>
 
 		<library-path append="true">
-			<path-element>melomel-0.5.0.swc</path-element>
+			<path-element>melomel-0.6.0.swc</path-element>
 		</library-path>
 		
 		<verbose-stacktraces>true</verbose-stacktraces>

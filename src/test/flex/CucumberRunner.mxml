@@ -73,6 +73,15 @@
 			<mx:Label text="My Picker"/>
 			<mx:ColorPicker id="haloColorPicker"/>
 		</s:VGroup>
+		<mx:TabNavigator id="tabNavigator">
+			<mx:VBox label="Tab 0">
+				<mx:Label id="tab0Label" text="tab 0"/>
+			</mx:VBox>
+			<mx:VBox label="Tab 1">
+				<mx:Label id="tab1Label" text="tab 1"/>
+			</mx:VBox>
+		</mx:TabNavigator>
+
 		<mx:ComboBox id="haloComboBox" labelField="label">
 			<fx:Array>
 				<fx:Object label=""/>
