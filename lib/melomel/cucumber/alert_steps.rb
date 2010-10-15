@@ -3,6 +3,7 @@ When /^I click the "([^"]*)" button on the alert$/ do |label|
     classes = Melomel::Flex.get_component_classes('alert')
     alert = Melomel.find!(classes)
     button = Melomel::Cucumber.find_by_label!('mx.controls.Button', label, alert)
+    button.setFocus()
     Melomel.click(button)
   end
 end

@@ -2,6 +2,7 @@ When /^I select "([^"]*)" on the "([^"]*)" (combo box|list)$/ do |value, name, t
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes(type)
     list = Melomel::Cucumber.find_labeled!(classes, name)
+    list.setFocus()
     labels = Melomel.items_to_labels!(list, list.dataProvider)
   
     # Loop over labels and set the selected index when we find a match
@@ -21,6 +22,7 @@ Then /^I should see "([^"]*)" selected on the "([^"]*)" (combo box|list)$/ do |v
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes(type)
     list = Melomel::Cucumber.find_labeled!(classes, name)
+    list.setFocus()
     label = list.itemToLabel(list.selectedItem)
     label.should == value
   end

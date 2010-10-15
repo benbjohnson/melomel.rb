@@ -2,6 +2,7 @@ When /^I select "([^"]*)" on the "([^"]*)" data grid$/ do |value, name|
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes('data grid')
     grid = Melomel::Cucumber.find_labeled!(classes, name)
+    grid.setFocus()
 
     # Retrieve data and take off header row
     data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
@@ -32,6 +33,7 @@ Then /^I should see "([^"]*)" selected on the "([^"]*)" data grid$/ do |value, n
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes('data grid')
     grid = Melomel::Cucumber.find_labeled!(classes, name)
+    grid.setFocus()
 
     # Retrieve data and take off header row
     data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
@@ -58,6 +60,8 @@ Then /^I should see the following data in the "([^"]*)" data grid:$/ do |name, t
   Melomel::Cucumber.run! do
     classes = Melomel::Flex.get_component_classes('data grid')
     grid = Melomel::Cucumber.find_labeled!(classes, name)
+    grid.setFocus()
+
     data = Melomel::Cucumber.get_grid_data(grid)
   
     # Trim whitespace
