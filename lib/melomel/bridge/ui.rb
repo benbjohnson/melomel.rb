@@ -1,6 +1,25 @@
 # These add-on methods provide ease of use utility methods.
 module Melomel
   class Bridge
+    # Blocks until Melomel.busy in the Flash virtual machine is false.
+    #
+    # Returns nothing.
+    def wait()
+      loop do 
+        break unless busy!
+        sleep 0.1
+      end
+    end
+    
+    # Checks if the Flash virtual machine is currently busy. See Melomel#busy
+    # in the Melomel asdocs for more information.
+    #
+    # Returns true if the Flash virtual machine is busy. Otherwise returns
+    # false.
+    def busy!
+      get_class!('Melomel').busy!
+    end
+    
     # Finds a list of display objects matching a class and hash of properties.
     #
     # class_name - The type of objects to search for.

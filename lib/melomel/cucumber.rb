@@ -5,6 +5,15 @@ Dir.glob(File.dirname(__FILE__) + '/cucumber/*', &method(:require))
 # This class holds utility methods for running Cucumber steps.
 module Melomel
   class Cucumber
+    # A wrapper for Melomel actions that automatically waits until the Flash
+    # virtual machine is not busy before continuing.
+    #
+    # Returns nothing.
+    def self.run!
+      Melomel.wait()
+      yield
+    end
+
     # Finds a component by id.
     #
     # class_name - The class or classes to match on.

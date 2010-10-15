@@ -10,6 +10,7 @@
 		<![CDATA[
 		import mx.controls.Alert;
 		import mx.events.CloseEvent;
+		import mx.managers.CursorManager;
 		
 		//----------------------------------------------------------------------
 		//
@@ -44,6 +45,19 @@
 				case Alert.YES: status = 'yes'; break;
 				case Alert.NO: status = 'no'; break;
 			}
+		}
+
+		/**
+		 *	Show busy cursor and update the status midway. This is to test
+		 *	that Melomel will wait in between steps for the busy cursor to
+		 *	disappear.
+		 */
+		private function waitButton_onClick(event:MouseEvent):void
+		{
+			status = "waiting";
+			setTimeout(function():void{status = "done waiting!"}, 2000);
+			setTimeout(function():void{CursorManager.removeBusyCursor()}, 4000);
+			CursorManager.setBusyCursor();
 		}
 		]]>
 	</fx:Script>
@@ -133,5 +147,6 @@
 	<!-- Misc -->
 	<s:VGroup>
 		<mx:Button label="Show Alert" click="Alert.show('You have been alerted.', 'My Alert', Alert.OK|Alert.CANCEL|Alert.YES|Alert.NO, null, alert_onClose)"/>
+		<mx:Button label="Wait!" click="waitButton_onClick(event)"/>
 	</s:VGroup>
 </s:Application>

@@ -3,7 +3,6 @@ $:.unshift lib unless $:.include?(lib)
 
 require 'rubygems'
 require 'rake'
-require 'minitest/autorun'
 require 'rake/testtask'
 require 'rake/rdoctask'
 require 'melomel'
