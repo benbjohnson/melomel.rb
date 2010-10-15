@@ -3,8 +3,8 @@
 	xmlns:fx="http://ns.adobe.com/mxml/2009"
 	xmlns:mx="library://ns.adobe.com/flex/mx"
 	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:m="library://melomel/2010"
 	name="Cucumber"
-	creationComplete="onCreationComplete(event)"
 >
 	<fx:Script>
 		<![CDATA[
@@ -31,12 +31,6 @@
 		//
 		//----------------------------------------------------------------------
 
-		private function onCreationComplete(event:Event):void
-		{
-			Melomel.debug = true;
-			Melomel.connect();
-		}
-		
 		private function alert_onClose(event:CloseEvent):void
 		{
 			switch(event.detail) {
@@ -61,6 +55,10 @@
 		}
 		]]>
 	</fx:Script>
+	
+	<fx:Declarations>
+		<m:Melomel debug="true"/>
+	</fx:Declarations>
 	
 	<s:layout>
 		<s:HorizontalLayout/>
