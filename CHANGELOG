@@ -1,3 +1,6 @@
+v0.6.0 contribution
+* added Advanced Data Grid class support for grid steps
+
 v0.6.0
 * Added wait interface.
 * Added focus to components in Cucumber steps.

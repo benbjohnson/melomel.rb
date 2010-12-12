@@ -18,7 +18,7 @@ module Melomel
         when 'check box' then ['mx.controls.CheckBox', 'spark.components.CheckBox']
         when 'color picker' then ['mx.controls.ColorPicker']
         when 'combo box' then ['mx.controls.ComboBox', 'spark.components.ComboBox']
-        when 'data grid' then ['mx.controls.DataGrid, mx.controls.AdvancedDataGrid']
+        when 'data grid' then ['mx.controls.DataGrid', 'mx.controls.AdvancedDataGrid']
         when 'date chooser' then ['mx.controls.DateChooser']
         when 'date field' then ['mx.controls.DateField']
         when 'scroll bar' then ['mx.controls.HScrollBar', 'mx.controls.VScrollBar', 'spark.components.HScrollBar', 'spark.components.VScrollBar']

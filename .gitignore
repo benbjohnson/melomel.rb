@@ -1,3 +1,5 @@
 *.gem
 doc
 target
+kolach-melomel.gemspec
+
