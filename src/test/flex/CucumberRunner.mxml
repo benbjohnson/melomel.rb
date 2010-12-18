@@ -108,6 +108,23 @@
 				<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO"/>
 			</fx:Array>
 		</mx:DataGrid>
+		<mx:DataGrid id="emptyHaloDataGrid">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Name" dataField="name"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:AdvancedDataGrid id="haloAdvancedDataGrid">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="Name" dataField="name"/>
+				<mx:AdvancedDataGridColumn headerText="Address" dataField="address"/>
+				<mx:AdvancedDataGridColumn headerText="City" dataField="city"/>
+				<mx:AdvancedDataGridColumn headerText="State" dataField="state"/>
+			</mx:columns>
+			<fx:Array>
+				<fx:Object name="Susy Que" address="1000 Broadway St" city="Denver" state="CO"/>
+				<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO"/>
+			</fx:Array>
+		</mx:AdvancedDataGrid>
 		<mx:DateChooser id="haloDateChooser"/>
 		<mx:DateField id="haloDateField"/>
 		<mx:HSlider id="haloHSlider" minimum="0" maximum="100"/>

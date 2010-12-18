@@ -62,7 +62,7 @@ Then /^I should see the following data in the "([^"]*)" data grid:$/ do |name, t
     grid = Melomel::Cucumber.find_labeled!(classes, name)
     grid.setFocus()
 
-    data = Melomel::Cucumber.get_striped_grid_data(grid)
+    data = Melomel::Cucumber.get_grid_data(grid)
   
     table.diff!(data)
   end

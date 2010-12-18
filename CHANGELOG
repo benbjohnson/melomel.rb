@@ -1,13 +1,9 @@
-v0.6.4
-* added `I should see no data in the "([^"]*)" data grid'
-
-v0.6.3
-* minor changes in working with data grids
-
-v0.6.2 contribution
-* added Advanced Data Grid class support for grid steps
-* minor issue fixed: nil.trim!
-* added `should not see' for text label
+v0.6.1
+* Added `I should see no data in the "([^"]*)" data grid' (Nick Chistyakov)
+* Added `should not see' steps (Nick Chistyakov)
+* Added Advanced Data Grid support (Nick Chistyakov)
+* Minor changes in working with data grids (Nick Chistyakov)
+* Fixed nil.trim! (Nick Chistyakov)
 
 v0.6.0
 * Added wait interface.
