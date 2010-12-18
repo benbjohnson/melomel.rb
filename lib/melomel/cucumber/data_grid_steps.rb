@@ -62,11 +62,22 @@ Then /^I should see the following data in the "([^"]*)" data grid:$/ do |name, t
     grid = Melomel::Cucumber.find_labeled!(classes, name)
     grid.setFocus()
 
-    data = Melomel::Cucumber.get_grid_data(grid)
-  
-    # Trim whitespace
-    data.each {|row| row.each {|cell| cell.strip!}}
+    data = Melomel::Cucumber.get_striped_grid_data(grid)
   
     table.diff!(data)
+  end
+end
+
+
+Then /^I should see no data in the "([^"]*)" data grid$/ do |name|
+  Melomel::Cucumber.run! do
+    classes = Melomel::Flex.get_component_classes('data grid')
+    grid = Melomel::Cucumber.find_labeled!(classes, name)
+    grid.setFocus()
+
+    # Retrieve data and take off header row
+    data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
+    
+    data.size.should == 0 
   end
 end

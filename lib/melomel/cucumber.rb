@@ -132,5 +132,19 @@ module Melomel
       # Transpose and return
       return data.transpose()
     end
+    
+    # The same grid data but stripped of whitespce
+    def self.get_striped_grid_data(grid)  
+      data = get_grid_data(grid)
+      # Trim whitespace
+      data.each do |row| 
+        row.each do |cell| 
+          if cell != nil 
+            cell.strip!
+          end
+        end
+      end
+    end
+    
   end
 end
