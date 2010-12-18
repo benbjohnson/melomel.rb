@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
   s.add_bundler_dependencies
 
   s.test_files   = Dir.glob("test/**/*")
-  s.files        = Dir.glob("lib/**/*") + %w(README.md CHANGELOG.md)
+  s.files        = Dir.glob("lib/**/*") + %w(README.md CHANGELOG)
   s.require_path = 'lib'
 end
