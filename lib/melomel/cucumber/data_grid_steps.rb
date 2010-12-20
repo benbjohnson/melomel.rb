@@ -12,7 +12,7 @@ When /^I select "([^"]*)" on the "([^"]*)" data grid$/ do |value, name|
     data.each_index do |i|
       row = data[i]
       row.each do |cell|
-        if cell.strip == value
+        if (cell != nil) && (cell.strip == value)
           index = i
           break
         end
@@ -43,7 +43,7 @@ Then /^I should see "([^"]*)" selected on the "([^"]*)" data grid$/ do |value, n
     data.each_index do |i|
       row = data[i]
       row.each do |cell|
-        if cell.strip == value
+        if (cell != nil) && (cell.strip == value)
           index = i
           break
         end

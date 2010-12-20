@@ -133,7 +133,7 @@ module Melomel
       data = data.transpose()
       
       # Trim whitespace from each cell
-      data.each {|row| row.each {|cell| cell.strip!}}
+      data.each {|row| row.each {|cell| cell.strip! unless cell.nil?}}
       
       return data
     end

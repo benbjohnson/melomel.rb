@@ -8,6 +8,7 @@ GEM
     rake (0.8.7)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
