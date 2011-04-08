@@ -1,16 +1,35 @@
+PATH
+  remote: .
+  specs:
+    melomel (0.6.1)
+      nokogiri (~> 1.4.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    minitest (1.7.1)
+    builder (3.0.0)
+    cucumber (0.10.0)
+      builder (>= 2.1.2)
+      diff-lcs (~> 1.1.2)
+      gherkin (~> 2.3.2)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
+    diff-lcs (1.1.2)
+    gherkin (2.3.3-x86-mingw32)
+      json (~> 1.4.6)
+    json (1.4.6-x86-mingw32)
     mocha (0.9.8)
       rake
-    nokogiri (1.4.3.1)
+    nokogiri (1.4.3.1-x86-mingw32)
     rake (0.8.7)
+    term-ansicolor (1.0.5)
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
-  minitest (~> 1.7.0)
+  cucumber (~> 0.10.0)
+  melomel!
   mocha (~> 0.9.8)
-  nokogiri (~> 1.4.3)
+  rake (~> 0.8.7)

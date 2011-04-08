@@ -3,7 +3,6 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 require 'melomel/version'
-require 'bundler'
 
 Gem::Specification.new do |s|
   s.name        = "melomel"
@@ -14,7 +13,12 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/benbjohnson/melomel.rb"
   s.summary     = "A Ruby interface to Melomel"
 
-  s.add_bundler_dependencies
+  s.add_dependency('nokogiri', '~> 1.4.3')
+
+  s.add_development_dependency('rake', '~> 0.8.7')
+  s.add_development_dependency('minitest', '~> 1.7.0')
+  s.add_development_dependency('mocha', '~> 0.9.8')
+  s.add_development_dependency('cucumber', '~> 0.10.0')
 
   s.test_files   = Dir.glob("test/**/*")
   s.files        = Dir.glob("lib/**/*") + %w(README.md CHANGELOG)
