@@ -34,7 +34,7 @@ class BridgeTestCase < MiniTest::Unit::TestCase
   end
 
   def test_should_send_policy_file_and_connect
-    policy = '<?xml version="1.0"?><!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd"><cross-domain-policy><allow-access-from domain="localhost" to-ports="10101"/></cross-domain-policy>';
+    policy = '<?xml version="1.0"?><!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd"><cross-domain-policy><allow-access-from domain="*" to-ports="10101"/></cross-domain-policy>';
     
     # Mock server
     server = mock('server')

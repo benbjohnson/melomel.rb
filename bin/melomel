@@ -1,0 +1,11 @@
+#!/usr/bin/ruby
+
+dir = File.dirname(File.expand_path(__FILE__))
+$:.unshift(File.join(dir, '..', 'lib'))
+
+require 'rubygems'
+require 'melomel'
+
+puts "Waiting for connection..."
+Melomel.connect()
+puts "Connected."
