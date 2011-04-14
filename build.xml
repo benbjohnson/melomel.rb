@@ -8,16 +8,21 @@
 	<property name="src.dir" value="${basedir}/src"/>
 	<property name="target.dir" value="${basedir}/target"/>
 
+	<target name="build" depends="build-melomel-runner,build-cucumber-runner"/>
+
 	<!-- mxmlc -load-config+=src/test/resources/MelomelRunner-config.xml src/test/flex/MelomelRunner.mxml -->
-	<!-- mxmlc -load-config+=src/test/resources/CucumberRunner-config.xml src/test/flex/CucumberRunner.mxml -->
-	<target name="build" depends="deps">
-		<mkdir dir="${target.dir}"/>
+	<target name="build-melomel-runner" depends="deps">
+		<copy file="${src.dir}/test/resources/MelomelRunner-app.xml" todir="${target.dir}" overwrite="true"/>
 		<java jar="${mxmlc.jar}" fork="true" failonerror="true">
 			<arg value="+flexlib=${FLEX_HOME}/frameworks"/>
 			<arg value="-load-config+=${src.dir}/test/resources/MelomelRunner-config.xml"/>
 			<arg value="${src.dir}/test/flex/MelomelRunner.mxml"/>
 		</java>
-
+	</target>
+	
+	<!-- mxmlc -load-config+=src/test/resources/CucumberRunner-config.xml src/test/flex/CucumberRunner.mxml -->
+	<target name="build-cucumber-runner" depends="deps">
+		<copy file="${src.dir}/test/resources/CucumberRunner-app.xml" todir="${target.dir}" overwrite="true"/>
 		<java jar="${mxmlc.jar}" fork="true" failonerror="true">
 			<arg value="+flexlib=${FLEX_HOME}/frameworks"/>
 			<arg value="-load-config+=${src.dir}/test/resources/CucumberRunner-config.xml"/>
@@ -26,8 +31,7 @@
 	</target>
 
 	<target name="deps">
-		<copy file="${src.dir}/test/resources/MelomelRunner-app.xml" todir="${target.dir}" overwrite="true"/>
-		<copy file="${src.dir}/test/resources/CucumberRunner-app.xml" todir="${target.dir}" overwrite="true"/>
+		<mkdir dir="${target.dir}"/>
 	</target>
 
 	<!-- Target: Clean -->
