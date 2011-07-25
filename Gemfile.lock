@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    melomel (0.6.1)
+    melomel (0.6.2)
       nokogiri (~> 1.4.3)
 
 GEM
@@ -24,7 +24,8 @@ GEM
     minitest (1.7.2)
     mocha (0.9.8)
       rake
-    nokogiri (1.4.4)
+    nokogiri (1.4.7)
+    nokogiri (1.4.7-x86-mingw32)
     rake (0.8.7)
     term-ansicolor (1.0.5)
 
