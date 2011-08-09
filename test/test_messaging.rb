@@ -2,7 +2,7 @@ require File.join(File.dirname(File.expand_path(__FILE__)), *%w[helper])
 
 class MessagingTestCase < MiniTest::Unit::TestCase
   def setup
-    @bridge = Melomel::Bridge.new('localhost', 10101)
+    @bridge = Melomel::Bridge.new('127.0.0.1', 10101)
   end
 
 

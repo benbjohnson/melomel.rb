@@ -21,7 +21,7 @@ module Melomel
     
     # Opens a bridge connection to the SWF file. This is a blocking call and
     # will wait until a SWF connects before continuing.
-    def connect(host='localhost', port=10101)
+    def connect(host='127.0.0.1', port=10101)
       @bridge = Melomel::Bridge.new(host, port)
       @bridge.connect();
     end

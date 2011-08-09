@@ -8,7 +8,7 @@ module Melomel
   class Bridge
     attr_accessor :host, :port
     
-    def initialize(host='localhost', port=10101)
+    def initialize(host='127.0.0.1', port=10101)
       self.host = host
       self.port = port
       server, @socket = nil, nil
