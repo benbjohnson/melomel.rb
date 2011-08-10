@@ -1,6 +1,6 @@
 require 'cucumber'
 require 'melomel'
-Dir.glob(File.dirname(__FILE__) + '/cucumber/*', &method(:require))
+Dir.glob(File.dirname(__FILE__) + '/cucumber/*') {|file| require file }
 
 # This class holds utility methods for running Cucumber steps.
 module Melomel
