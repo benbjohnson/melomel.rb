@@ -1,6 +1,5 @@
 <flex-config>
 	<output>../../../target/MelomelRunner.swf</output>
-	<target-player>10.2.0</target-player>
 	<benchmark>false</benchmark>
 	<warnings>true</warnings>
 
@@ -19,4 +18,6 @@
 		<verbose-stacktraces>true</verbose-stacktraces>
 		<headless-server>true</headless-server>
 	</compiler>
+
+	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 </flex-config>

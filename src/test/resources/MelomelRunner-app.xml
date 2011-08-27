@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/2.0">
+<application xmlns="http://ns.adobe.com/air/application/2.6">
     <id>melomel.MelomelRunner</id>
-    <version>1.0</version>
+    <versionNumber>1.0</versionNumber>
     <filename>MelomelRunner</filename>
     <name>MelomelRunner</name>
     <initialWindow>
