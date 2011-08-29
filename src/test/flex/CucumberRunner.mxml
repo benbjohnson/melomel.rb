@@ -5,6 +5,7 @@
 	xmlns:s="library://ns.adobe.com/flex/spark"
 	xmlns:m="library://melomel/2010"
 	name="Cucumber"
+	creationComplete="groupedData.refresh();"
 >
 	<fx:Script>
 		<![CDATA[
@@ -58,8 +59,34 @@
 	
 	<fx:Declarations>
 		<m:Melomel debug="true"/>
+		<fx:Array id="flatData">
+			<fx:Object name="Susy Que" address="1000 Broadway St" city="Denver" state="CO" age="43"/>
+			<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO" age="27"/>
+		</fx:Array>
+		<mx:GroupingCollection2 id="groupedData" source="{flatData}">
+			<mx:Grouping>
+				<mx:GroupingField name="state">
+					<mx:SummaryRow summaryPlacement="group">
+						<mx:SummaryField2 summaryOperation="MAX" dataField="age" label="maxAge"/>
+					</mx:SummaryRow>
+				</mx:GroupingField>
+			</mx:Grouping>
+		</mx:GroupingCollection2>
+		<mx:HierarchicalData id="hierarchicalData">
+			<mx:source>
+				<fx:Array>
+					<fx:Object state="CO">
+						<fx:children>
+							<fx:Array>
+								<fx:Object name="Susy Que"/>
+								<fx:Object name="John Smith"/>
+							</fx:Array>
+						</fx:children>
+					</fx:Object>
+				</fx:Array>
+			</mx:source>
+		</mx:HierarchicalData>
 	</fx:Declarations>
-	
 	<s:layout>
 		<s:HorizontalLayout/>
 	</s:layout>
@@ -96,34 +123,46 @@
 				<fx:Object label="bar"/>
 			</fx:Array>
 		</mx:List>
-		<mx:DataGrid id="haloDataGrid">
+		<mx:DataGrid id="haloDataGrid" dataProvider="{flatData}">
 			<mx:columns>
 				<mx:DataGridColumn headerText="Name" dataField="name"/>
 				<mx:DataGridColumn headerText="Address" dataField="address"/>
 				<mx:DataGridColumn headerText="City" dataField="city"/>
 				<mx:DataGridColumn headerText="State" dataField="state"/>
 			</mx:columns>
-			<fx:Array>
-				<fx:Object name="Susy Que" address="1000 Broadway St" city="Denver" state="CO"/>
-				<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO"/>
-			</fx:Array>
 		</mx:DataGrid>
 		<mx:DataGrid id="emptyHaloDataGrid">
 			<mx:columns>
 				<mx:DataGridColumn headerText="Name" dataField="name"/>
 			</mx:columns>
 		</mx:DataGrid>
-		<mx:AdvancedDataGrid id="haloAdvancedDataGrid">
+		<mx:AdvancedDataGrid id="haloGroupingCollectionDataGrid" dataProvider="{groupedData}">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="State"/>
+				<mx:AdvancedDataGridColumn headerText="Name" dataField="name"/>
+				<mx:AdvancedDataGridColumn headerText="Age" dataField="age"/>
+				<mx:AdvancedDataGridColumn headerText="Max Age" dataField="maxAge"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+		<mx:AdvancedDataGrid id="haloHierarchicalDataDataGrid" dataProvider="{hierarchicalData}">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="State" dataField="state"/>
+				<mx:AdvancedDataGridColumn headerText="Name" dataField="name"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+		<mx:AdvancedDataGrid id="haloTreeColumnDataGrid" treeColumn="{treeColumn}" dataProvider="{groupedData}">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="Name" dataField="name"/>
+				<mx:AdvancedDataGridColumn headerText="State" id="treeColumn"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+		<mx:AdvancedDataGrid id="haloAdvancedDataGrid" dataProvider="{flatData}">
 			<mx:columns>
 				<mx:AdvancedDataGridColumn headerText="Name" dataField="name"/>
 				<mx:AdvancedDataGridColumn headerText="Address" dataField="address"/>
 				<mx:AdvancedDataGridColumn headerText="City" dataField="city"/>
 				<mx:AdvancedDataGridColumn headerText="State" dataField="state"/>
 			</mx:columns>
-			<fx:Array>
-				<fx:Object name="Susy Que" address="1000 Broadway St" city="Denver" state="CO"/>
-				<fx:Object name=" John Smith " address=" 123 Fake St " city="Denver" state="CO"/>
-			</fx:Array>
 		</mx:AdvancedDataGrid>
 		<mx:DateChooser id="haloDateChooser"/>
 		<mx:DateField id="haloDateField"/>
