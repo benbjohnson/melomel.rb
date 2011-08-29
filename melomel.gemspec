@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('minitest', '~> 1.7.0')
   s.add_development_dependency('mocha', '~> 0.9.8')
   s.add_development_dependency('cucumber', '~> 0.10.0')
+  s.add_development_dependency('rspec', '~> 2.6.0')
 
   s.test_files   = Dir.glob("test/**/*")
   s.files        = Dir.glob("lib/**/*") + %w(README.md CHANGELOG)
