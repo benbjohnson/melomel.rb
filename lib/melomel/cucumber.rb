@@ -110,15 +110,90 @@ module Melomel
     #
     # Returns a 2D array of rows of columns of data.
     def self.get_grid_data(grid)
+      data_with_elements = get_grid_data_with_elements(grid)
+      
+      # Remove data grid elements
+      data_with_elements.map{|row| row[1..-1]}
+    end
+    
+    # Retrieves the first element of a grid, which matches the label
+    #
+    # label - The label that should be found in the grid
+    # grid - The grid which will be searched in
+    #
+    # Returns the matched element
+    def self.find_grid_element_by_label(grid, label)
+      data_with_elements = get_grid_data_with_elements(grid)
+      
+      # Remove data grid elements and first row
+      data = data_with_elements.map{|row| row[1..-1]}[1..-1]
+      
+      index = find_index_by_label(data, label)
+      
+      data_with_elements[index + 1].first
+    end
+    
+    # Retrieves the index of the first element of a grid, which matches the label
+    #
+    # label - The label that should be found in the grid
+    # grid - The grid which will be searched in
+    #
+    # Returns the matched elements index
+    def self.find_grid_index_by_label(grid, label)
+      data_with_elements = get_grid_data_with_elements(grid)
+      
+      # Remove data grid elements and first row
+      data = data_with_elements.map{|row| row[1..-1]}[1..-1]
+      
+      index = find_index_by_label(data, label)
+      index
+    end
+    
+    # Retrieves grid data as a 2D array of rows of columns. The first row
+    # contains the grid's header. The first column contains the grids elements.
+    #
+    # grid - The grid to generate the table from.
+    #
+    # Returns a 2D array of rows of columns of data.
+    def self.get_grid_data_with_elements(grid)
       # Retrieve as columns of rows
       data = []
+      group_labels = []
+      
+      # Add the empty cell in the upper left corner
+      data << [nil]
+      
+      # Retrieve data with cursor and group labels
+      i = 0
+      elements = get_grid_elements(grid)
+      elements.each do |element|
+        data[0] << element
+        if !element.GroupLabel.nil? && element.GroupLabel != ""
+          group_labels[i] = element.GroupLabel
+        end
+        i += 1
+      end
+      
       grid.columns.length.times do |i|
         column_data = []
         column = grid.columns[i]
-        labels = Melomel.items_to_labels!(column, grid.dataProvider)
+        labels = Melomel.items_to_labels!(column, elements)
 
         # Add column header
         column_data << column.headerText
+        
+        # Set group labels
+        # either in first column or, if treeColumn is set in the corresponding column
+        # Comparision between the current column and the treeColumn is still a bit vague,
+        # but column == grid.treeColumn is always false, because these are two different objects
+        if (grid.treeColumn == nil && i == 0) ||
+          (grid.treeColumn != nil && column.headerText == grid.treeColumn.headerText)
+          group_labels.length.times do |j|
+            if !group_labels[j].nil?
+              labels[j] = group_labels[j]
+            end
+          end
+        end
         
         # Add label data
         labels.length.times do |j|
@@ -133,9 +208,49 @@ module Melomel
       data = data.transpose()
       
       # Trim whitespace from each cell
-      data.each {|row| row.each {|cell| cell.strip! unless cell.nil?}}
+      data.each {|row| row.each {|cell| cell.strip! unless cell.nil? || !cell.is_a?(String)}}
       
       return data
+    end
+    
+    # Searches for a label in 2D grid data
+    #
+    # label - The label that should be found in the data
+    # data - The data which will be searched in
+    #
+    # Returns an array of all the elements
+    def self.find_index_by_label(data, label)
+      index = nil
+      data.each_index do |i|
+        row = data[i]
+          row.each do |cell|
+            if (cell != nil) && (cell.strip == label)
+              index = i
+            break
+          end
+        end
+        break unless index.nil?
+      end
+      raise "Cannot find '#{value}' on data grid" if index.nil?
+      index
+    end
+    
+    
+    # Retrieves all elements of a grid through a cursor
+    #
+    # grid - The grid to retrieve the objects from
+    #
+    # Returns an array of all the elements
+    def self.get_grid_elements(grid)
+      elements = []
+      unless grid.dataProvider.nil?
+        cursor = grid.dataProvider.createCursor()
+        while !cursor.afterLast do
+          elements.push cursor.current
+          break if !cursor.moveNext()
+        end
+      end
+      elements
     end
   end
 end

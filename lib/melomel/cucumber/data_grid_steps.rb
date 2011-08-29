@@ -3,27 +3,9 @@ When /^I select "([^"]*)" on the "([^"]*)" data grid$/ do |value, name|
     classes = Melomel::Flex.get_component_classes('data grid')
     grid = Melomel::Cucumber.find_labeled!(classes, name)
     grid.setFocus()
-
-    # Retrieve data and take off header row
-    data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
-  
-    # Loop data and check for matches
-    index = nil
-    data.each_index do |i|
-      row = data[i]
-      row.each do |cell|
-        if (cell != nil) && (cell.strip == value)
-          index = i
-          break
-        end
-      end
     
-      break unless index.nil?
-    end
-  
-    # If we couldn't find a matching cell then throw an error
-    raise "Cannot find '#{value}' on data grid" if index.nil?
-  
+    index = Melomel::Cucumber.find_grid_index_by_label(grid, value)
+
     grid.selectedIndex = index
   end
 end
@@ -35,23 +17,8 @@ Then /^I should see "([^"]*)" selected on the "([^"]*)" data grid$/ do |value, n
     grid = Melomel::Cucumber.find_labeled!(classes, name)
     grid.setFocus()
 
-    # Retrieve data and take off header row
-    data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
-  
-    # Loop data and check for matches
-    index = nil
-    data.each_index do |i|
-      row = data[i]
-      row.each do |cell|
-        if (cell != nil) && (cell.strip == value)
-          index = i
-          break
-        end
-      end
-    
-      break unless index.nil?
-    end
-  
+    index = Melomel::Cucumber.find_grid_index_by_label(grid, value)
+
     grid.selectedIndex.should == index
   end
 end
@@ -63,7 +30,7 @@ Then /^I should see the following data in the "([^"]*)" data grid:$/ do |name, t
     grid.setFocus()
 
     data = Melomel::Cucumber.get_grid_data(grid)
-  
+
     table.diff!(data)
   end
 end
@@ -77,7 +44,20 @@ Then /^I should see no data in the "([^"]*)" data grid$/ do |name|
 
     # Retrieve data and take off header row
     data = Melomel::Cucumber.get_grid_data(grid)[1..-1]
-    
+
     data.size.should == 0 
+  end
+end
+
+
+When /^I (open|close) "([^"]*)" on the "([^"]*)" data grid$/ do |action, value, name|
+  Melomel::Cucumber.run! do
+    classes = Melomel::Flex.get_component_classes('data grid')
+    grid = Melomel::Cucumber.find_labeled!(classes, name)
+    grid.setFocus()
+
+    element = Melomel::Cucumber.find_grid_element_by_label(grid, value)
+
+    grid.expandItem(element,action == "open")
   end
 end
