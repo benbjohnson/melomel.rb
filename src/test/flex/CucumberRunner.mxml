@@ -24,6 +24,22 @@
 		 *	that actions have occurred.
 		 */
 		static public var status:String = "";
+
+
+		[Bindable]
+		public var treeData:Object = {
+			label:"Root",
+			children:[
+				{label:"Foo"},
+				{
+					label:"Bar",
+					children: [
+						{label:"Baz"},
+						{label:"Bat"}
+					]
+				}
+			]
+		};
 		
 
 		//----------------------------------------------------------------------
@@ -109,6 +125,8 @@
 			</mx:VBox>
 		</mx:TabNavigator>
 
+		<mx:Tree id="haloTree" width="300" labelField="label" dataProvider="{treeData}"/>
+		
 		<mx:ComboBox id="haloComboBox" labelField="label">
 			<fx:Array>
 				<fx:Object label=""/>

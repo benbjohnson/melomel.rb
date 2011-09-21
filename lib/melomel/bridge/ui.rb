@@ -151,5 +151,16 @@ module Melomel
     def items_to_labels!(component, data)
       get_class('melomel.core.UI').itemsToLabels!(component, data)
     end
+
+
+    # Retrieves the first item in a tree that has a given label.
+    #
+    # tree  - The tree.
+    # label - The label to search for.
+    #
+    # Returns the item in the tree.
+    def find_tree_item_by_label!(tree, label)
+      get_class('melomel.core.UI').findTreeItemByLabel!(tree, label)
+    end
   end
 end
