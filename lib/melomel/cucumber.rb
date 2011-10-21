@@ -231,7 +231,7 @@ module Melomel
         end
         break unless index.nil?
       end
-      raise "Cannot find '#{value}' on data grid" if index.nil?
+      raise "Cannot find '#{label}' on data grid" if index.nil?
       index
     end
     
