@@ -11,6 +11,7 @@
 		<![CDATA[
 		import mx.controls.Alert;
 		import mx.events.CloseEvent;
+		import mx.events.ListEvent;
 		import mx.managers.CursorManager;
 		
 		//----------------------------------------------------------------------
@@ -54,6 +55,14 @@
 			setTimeout(function():void{CursorManager.removeBusyCursor()}, 4000);
 			CursorManager.setBusyCursor();
 		}
+
+		/**
+		 * Show an alert with the rowIndex of the selected row.
+		 */
+		private function haloDataGrid_onChange(event:ListEvent):void{
+			Alert.show('ListEvent dispatched with rowIndex ' + event.rowIndex.toString(), 'My Alert', Alert.OK);
+		}
+
 		]]>
 	</fx:Script>
 	
@@ -123,7 +132,7 @@
 				<fx:Object label="bar"/>
 			</fx:Array>
 		</mx:List>
-		<mx:DataGrid id="haloDataGrid" dataProvider="{flatData}">
+		<mx:DataGrid id="haloDataGrid" dataProvider="{flatData}" change="haloDataGrid_onChange(event)">
 			<mx:columns>
 				<mx:DataGridColumn headerText="Name" dataField="name"/>
 				<mx:DataGridColumn headerText="Address" dataField="address"/>

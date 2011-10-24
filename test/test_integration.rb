@@ -63,6 +63,11 @@ class IntegrationTestCase < RunnerTestCase
     point.y = 40
     assert_equal 50, point.length
   end
+
+  def test_should_create_object_with_arguments
+    point = Melomel.create_object('flash.geom.Point', 30, 40)
+    assert_equal 50, point.length
+  end
   
   def test_should_invoke_function
     result = Melomel.invoke_function('flash.utils.getQualifiedClassName', 'Some string.')

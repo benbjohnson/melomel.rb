@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    melomel (0.6.4)
+    melomel (0.6.6)
       nokogiri (~> 1.4.3)
 
 GEM
