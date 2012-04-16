@@ -5,9 +5,7 @@ melomel.rb -- A Ruby interface to Melomel
 
 Melomel.rb is a library that allows Ruby to communicate with an application
 running within the Flash virtual machine. For more information on Melomel,
-visit the Melomel site:
-
-http://melomel.info
+visit the [GitHub Wiki](https://github.com/benbjohnson/melomel/wiki).
 
 Melomel.rb follows the rules of [Semantic Versioning](http://semver.org/) and
 uses [TomDoc](http://tomdoc.org/) for inline documentation.
