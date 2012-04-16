@@ -2,6 +2,8 @@ Feature: Data Grid
   Scenario: Halo Data Grid
     When I select "John Smith" on the "#haloDataGrid" data grid
     Then I should see "123 Fake St" selected on the "#haloDataGrid" data grid
+    And I should see an alert with the message: "ListEvent dispatched with rowIndex 1"
+    And I click the "OK" button
     And I should see the following data in the "#haloDataGrid" data grid:
       | Name       | Address          | City   | State |
       | Susy Que   | 1000 Broadway St | Denver | CO    |

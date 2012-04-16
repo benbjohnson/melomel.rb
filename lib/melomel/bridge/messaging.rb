@@ -13,16 +13,17 @@ module Melomel
     # to it.
     #
     # class_name - The name of the class to instantiate.
+    # *args       - List of arguments passed to the constructor.
     #
     # Returns an instance of the class if the class is found. Otherwise, nil.
-    def create_object(class_name)
-      send_create_object(class_name, false)
+    def create_object(class_name, *args)
+      send_create_object(class_name, args, false)
     end
 
     # Same as `create_object` except that an error is thrown if the class is
     # not found.
-    def create_object!(class_name)
-      send_create_object(class_name, true)
+    def create_object!(class_name, *args)
+      send_create_object(class_name, args, true)
     end
 
     # Retrieves a reference to a class in the Flash virtual machine.
@@ -187,8 +188,20 @@ module Melomel
     
     # Creates an object in the Flash virtual machine and returns the reference
     # to it.
-    def send_create_object(class_name, throwable=true)
-      send("<create class=\"#{class_name}\" throwable=\"#{throwable}\"/>")
+    def send_create_object(class_name, args, throwable=true)
+      xml = Nokogiri::XML("<create class=\"#{class_name}\" throwable=\"#{throwable}\"><args/></create>")
+
+      # Loop over and add arguments to call
+      args_node = xml.at_xpath('create/args')
+      args.each do |arg|
+        arg_node = Nokogiri::XML::Node.new('arg', xml)
+        format_message_value(arg_node, arg)
+        args_node.add_child(arg_node)
+      end
+
+      # Send and receive
+      send(xml.root.to_xml(:indent => 0))
+    
       parse_message_value(Nokogiri::XML(receive()).root)
     end
 

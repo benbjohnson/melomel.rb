@@ -36,8 +36,8 @@ module Melomel
     end
 
     # Creates an object in the virtual machine.
-    def create_object(class_name)
-      @bridge.create_object(class_name)
+    def create_object(class_name, *args)
+      @bridge.create_object(class_name, *args)
     end
     
     # Invokes package level function

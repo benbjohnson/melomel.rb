@@ -7,6 +7,15 @@ When /^I select "([^"]*)" on the "([^"]*)" data grid$/ do |value, name|
     index = Melomel::Cucumber.find_grid_index_by_label(grid, value)
 
     grid.selectedIndex = index
+
+    # TODO: Get the event's type through melomel, but the following doesn't work:
+    # Melomel.get_class!("mx.events.ListEvent").CHANGE
+
+    event = Melomel.create_object!("mx.events.ListEvent", "change")
+    event.rowIndex = index
+    event.target = grid
+    event.currentTarget = grid
+    grid.dispatchEvent(event)
   end
 end
 
