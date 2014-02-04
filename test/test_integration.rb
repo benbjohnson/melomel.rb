@@ -19,6 +19,11 @@ class IntegrationTestCase < RunnerTestCase
     runner = Melomel.get_class('MelomelRunner')
     assert_equal 'bar', runner.foo
   end
+  
+  def test_should_get_undefined_property_as_nil
+    runner = Melomel.get_class('MelomelRunner')
+    assert_equal nil, runner.fee
+  end
 
   def test_should_get_missing_property_as_nil
     app = Melomel.get_class('mx.core.FlexGlobals').topLevelApplication
