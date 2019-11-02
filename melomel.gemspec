@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/benbjohnson/melomel.rb"
   s.summary     = "A Ruby interface to Melomel"
 
-  s.add_dependency('nokogiri', '~> 1.4.3')
+  s.add_dependency('nokogiri', '>= 1.4.3', '< 1.11.0')
 
   s.add_development_dependency('rake', '~> 0.8.7')
   s.add_development_dependency('minitest', '~> 1.7.0')
