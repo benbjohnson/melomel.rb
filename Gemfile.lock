@@ -25,7 +25,8 @@ GEM
     mocha (0.9.8)
       rake
     nokogiri (1.4.7)
-    rake (0.8.7)
+    nokogiri (1.4.7-x86-mingw32)
+    rake (13.0.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -45,5 +46,5 @@ DEPENDENCIES
   melomel!
   minitest (~> 1.7.0)
   mocha (~> 0.9.8)
-  rake (~> 0.8.7)
+  rake (~> 13.0.1)
   rspec (~> 2.6.0)
